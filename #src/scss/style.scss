@@ -1,0 +1,518 @@
+@use "sass:math";
+//<МИКСИНЫ>===============================================================================================
+@import "mixins";
+//</МИКСИНЫ>===============================================================================================
+
+//<ШРИФТЫ>===============================================================================================
+
+//<Подключаем шрифты>=======================================================================================
+//&display=swap&subset=cyrillic-ext
+@import "fonts";
+//</Подключаем шрифты>=======================================================================================
+
+//<Иконочные шрифты>==========================================================================================
+//@import "icons";
+//</Иконочные шрифты>==========================================================================================
+
+//<Шрифт по умолчанию>==========================================================================================
+$fontFamily: "HarmoniaSansProCyr-Regular";
+$fontSize: 14;
+//</Шрифт по умолчанию>==========================================================================================
+
+//</ШРИФТЫ>=======================================================================================================
+
+//<ПЕРЕМЕННЫЕ>==========================================================================================================
+$minWidth: 320px;
+$maxWidth: 1920;
+$maxWidthContainer: 1170;
+$md1: $maxWidthContainer + 12;
+$md2: 991.98;
+$md3: 767.98;
+$md4: 479.98;
+$md5: 374.98;
+
+$mainColor: #11223e;
+
+//</ПЕРЕМЕННЫЕ>===========================================================================================================
+
+//<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
+@import "null";
+body {
+	color: $mainColor;
+	&._lock {
+		overflow: hidden;
+	}
+}
+//</ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
+
+//<ОБОЛОЧКА>===========================================================================================================
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	&._loaded {
+	}
+}
+//</ОБОЛОЧКА>===========================================================================================================
+
+//<ОСНОВНАЯ СЕТКА>===========================================================================================================
+._container {
+	max-width: $maxWidthContainer + px;
+	margin: 0 auto;
+	@media (max-width: $md1 + px) {
+		max-width: 970px;
+	}
+	@media (max-width: $md2+px) {
+		max-width: 750px;
+	}
+	@media (max-width: $md3+px) {
+		max-width: none;
+		padding: 0 10px;
+	}
+}
+//</ОСНОВНАЯ СЕТКА>===========================================================================================================
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>====================================================================================================
+// @import "forms";
+// @import "ui";
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>====================================================================================================
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
+//@import "datepicker";
+//@import "lightgallery";
+//@import "pagging";
+// @import "popup";
+// @import "header";
+// @import "footer";
+// @import "home";
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
+
+//<ОСНОВНОЙ БЛОК>====================================================================================================
+.page {
+	flex: 1 1 auto;
+}
+//===================================================================================================================================
+#preloader {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	background: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#preloader.preloader-hidden {
+	display: none;
+}
+.table {
+	margin: 50px auto;
+	background: #ffffff;
+	border: 1px solid rgba(17, 34, 62, 0.05);
+	border-radius: 5px;
+	padding: 40px;
+	max-width: 100%;
+	@media (max-width: $md1+px) {
+		padding: 20px;
+	}
+	@media (max-width: $md4+px) {
+		padding: 5px;
+	}
+
+	&__body {
+		display: flex;
+		max-width: 100%;
+	}
+	&__column {
+		&--1 {
+			flex: 0 0 300px;
+			border: 1px solid rgba(17, 34, 62, 0.2);
+			@media (max-width: $md1+px) {
+				flex: 0 0 250px;
+			}
+			@media (max-width: $md2+px) {
+				flex: 0 0 220px;
+			}
+			@media (max-width: $md4+px) {
+				flex: 0 0 200px;
+			}
+			@media (max-width: $md5+px) {
+				flex: 0 0 150px;
+			}
+		}
+		&--2 {
+			flex: 0 0 90px;
+			border: 1px solid rgba(17, 34, 62, 0.2);
+			border-left: 0;
+			@media (max-width: $md2+px) {
+				flex: 0 0 70px;
+			}
+			@media (max-width: $md4+px) {
+				flex: 0 0 65px;
+			}
+			@media (max-width: $md5+px) {
+				flex: 0 0 60px;
+			}
+		}
+		&--3 {
+			flex: 0 1 auto;
+			border: 1px solid rgba(17, 34, 62, 0.07);
+			border-left: 0;
+			overflow-x: auto;
+			// scrollbar-color: rgba(174, 124, 255, 0.4) rgba(249, 249, 253, 1);
+			&::-webkit-scrollbar {
+				height: 5px;
+				background-color: #f9f9fd;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				border-radius: 10px;
+				background-color: rgba(174, 124, 255, 0.4);
+			}
+
+			&::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+				border-radius: 10px;
+				background-color: #f9f9fd;
+			}
+		}
+	}
+	&__line {
+		display: flex;
+		align-items: center;
+		min-height: 50px;
+		&--c1,
+		&--c2 {
+			border-top: 1px solid rgba(17, 34, 62, 0.2);
+			&:first-of-type {
+				border-top: 0;
+			}
+		}
+		&--c1 {
+			padding-left: 14px;
+			transition: all 0.3s ease 0s;
+			@media (max-width: $md1+px) {
+				padding-left: 10px;
+			}
+			@media (max-width: $md2+px) {
+				padding-left: 7px;
+			}
+			p {
+				margin-left: 40px;
+				position: relative;
+				width: 100%;
+				cursor: pointer;
+				@media (max-width: $md1+px) {
+					margin-left: 30px;
+				}
+				@media (max-width: $md2+px) {
+					font-size: 12px;
+					margin-left: 24px;
+				}
+				@media (max-width: $md4+px) {
+					margin-left: 20px;
+				}
+				@media (max-width: $md5+px) {
+					margin-left: 22px;
+				}
+				&:before {
+					content: "";
+					position: absolute;
+					width: 5px;
+					height: 9px;
+					background: url(../img/arrow.png) center center/contain no-repeat;
+					top: 50%;
+					transform: translateY(-50%);
+					right: 20px;
+					transition: all 0.3s ease 0s;
+					@media (max-width: $md1+px) {
+						width: 4px;
+						height: 8px;
+						right: 15px;
+					}
+					@media (max-width: $md2+px) {
+						right: 10px;
+					}
+					@media (max-width: $md4+px) {
+						right: 7px;
+					}
+				}
+			}
+			&.active {
+				transition: all 0.3s ease 0s;
+				border-bottom: 1px solid rgba(17, 34, 62, 0.2);
+				p {
+					&:before {
+						content: "";
+						transform: rotate(90deg);
+						transition: all 0.3s ease 0s;
+					}
+					@media (max-width: $md2+px) {
+						&:before {
+							content: "";
+							top: 30%;
+						}
+					}
+				}
+			}
+		}
+		&--c2 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			@media (max-width: $md2+px) {
+				font-size: 12px;
+			}
+		}
+		&--c3 {
+			display: inline-flex;
+			align-items: stretch;
+			border-top: 1px solid rgba(17, 34, 62, 0.07);
+			&:first-of-type {
+				border-top: 0;
+			}
+		}
+		&--top {
+			font-size: 12px;
+			line-height: 125%;
+			mix-blend-mode: normal;
+			color: rgba(17, 34, 62, 0.3);
+			@media (max-width: $md4+px) {
+				line-height: 110%;
+			}
+			@media (max-width: $md5+px) {
+				font-size: 11px;
+			}
+		}
+	}
+
+	&__cell {
+		font-size: 14px;
+		line-height: 57%;
+		width: 44px;
+		display: flex;
+		flex-shrink: 0;
+		justify-content: center;
+		align-items: center;
+		border-left: 1px solid rgba(17, 34, 62, 0.07);
+		border-right: 1px solid rgba(17, 34, 62, 0.07);
+		@media (max-width: $md2+px) {
+			font-size: 12px;
+			width: 40px;
+		}
+		&:first-of-type {
+			border-left: 0;
+		}
+	}
+}
+.check {
+	position: relative;
+	&__input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		&:checked + .check__box {
+			border: 1px solid rgba(17, 34, 62, 0.3);
+			background: url(../img/icons/check.svg) center / 60% no-repeat, rgba(174, 124, 255, 0.4);
+		}
+	}
+	&__box {
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		background: rgba(34, 62, 105, 0.1);
+		mix-blend-mode: normal;
+		border-radius: 5px;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		@media (max-width: $md2+px) {
+			width: 17px;
+			height: 17px;
+		}
+		@media (max-width: $md4+px) {
+			width: 15px;
+			height: 15px;
+		}
+	}
+}
+.gray-arrow {
+	position: relative;
+	&::after {
+		content: "";
+		width: 0;
+		height: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 5px solid rgba(17, 34, 62, 0.3);
+		margin-left: 6px;
+		@media (max-width: $md4+px) {
+			border-left: 3px solid transparent;
+			border-right: 3px solid transparent;
+			border-top: 4px solid rgba(17, 34, 62, 0.3);
+			margin-left: 2px;
+		}
+	}
+}
+.info {
+	display: none;
+	transition: all 0.3s ease 0s;
+	&.active {
+		display: inline-flex;
+		flex-wrap: wrap;
+		border-top: 1px solid rgba(17, 34, 62, 0.07);
+		transition: all 0.3s ease 0s;
+	}
+	&__line {
+		display: flex;
+		min-height: 50px;
+		width: 100%;
+	}
+	&__cell {
+		width: 44px;
+		display: flex;
+		flex-shrink: 0;
+		justify-content: center;
+		align-items: center;
+		@media (max-width: $md2+px) {
+			width: 40px;
+		}
+	}
+	&__icon {
+		transition: all 0.3s ease 0s;
+		cursor: pointer;
+		@media (max-width: $md2+px) {
+			max-width: 22px;
+		}
+		&.active {
+			transition: all 0.3s ease 0s;
+			box-shadow: 0px 5px 10px 2px rgba(174, 124, 255, 0.4) inset;
+			transform: scale(1.2);
+			border-radius: 5px;
+		}
+	}
+}
+.star {
+	position: relative;
+	&:before {
+		content: "";
+		width: 14px;
+		height: 14px;
+		position: absolute;
+		right: 34px;
+		top: 50%;
+		transform: translateY((-50%));
+		@media (max-width: $md2+px) {
+			width: 12px;
+			height: 12px;
+			right: 22px;
+		}
+		@media (max-width: $md4+px) {
+			width: 10px;
+			height: 10px;
+			right: 17px;
+		}
+	}
+	&__srtoke {
+		&:before {
+			content: "";
+			background: url(../img/Star2.png) center/100% no-repeat;
+			transition: all 0.5s ease 0s;
+		}
+		&:hover {
+			&:before {
+				content: "";
+				background: url(../img/Star3.png) center/100% no-repeat;
+				transition: all 0.5s ease 0s;
+			}
+		}
+	}
+	&__fill {
+		&:before {
+			content: "";
+			background: url(../img/Star1.png) center/100% no-repeat;
+		}
+	}
+}
+.add {
+	position: relative;
+	&__bottom-block {
+		position: absolute;
+		padding: 2px 5px;
+		background: rgba(117, 185, 38, 0.3);
+		mix-blend-mode: normal;
+		border-radius: 3px;
+		font-size: 10px;
+		line-height: 80%;
+		color: #355b08;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 4px;
+		@media (max-width: $md2+px) {
+			font-size: 9px;
+		}
+	}
+	&__top-red {
+		position: absolute;
+		mix-blend-mode: normal;
+		border-radius: 3px;
+		font-size: 10px;
+		line-height: 70%;
+		color: #d0021b;
+		top: 5px;
+		right: 1px;
+		@media (max-width: $md2+px) {
+			font-size: 9px;
+		}
+		&:before {
+			content: "";
+			position: absolute;
+			width: 6px;
+			height: 3px;
+			background: url(../img/red.png) center / contain no-repeat;
+			top: 2px;
+			right: 6px;
+		}
+	}
+	&__top-green {
+		position: absolute;
+		mix-blend-mode: normal;
+		border-radius: 3px;
+		font-size: 10px;
+		line-height: 70%;
+		color: #417505;
+		top: 5px;
+		right: 1px;
+		@media (max-width: $md2+px) {
+			font-size: 9px;
+		}
+		&:before {
+			content: "";
+			position: absolute;
+			width: 6px;
+			height: 3px;
+			background: url(../img/green.png) center / contain no-repeat;
+			top: 2px;
+			right: 6px;
+		}
+	}
+	&__green-bg {
+		background: #faffee;
+	}
+	&__red-bg {
+		background: #fff6f6;
+	}
+	&__only-text {
+		&:before {
+			content: "";
+			display: none;
+		}
+	}
+}
+//</ОСНОВНОЙ БЛОК>====================================================================================================
